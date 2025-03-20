@@ -5,3 +5,4 @@ export const BASE_URL =
   'https://angular-module-three-exam-default-rtdb.asia-southeast1.firebasedatabase.app';
 
 export const USER_ENDPOINT = '/users';
+export const INCIDENT_ENDPOINT = '/incidents';

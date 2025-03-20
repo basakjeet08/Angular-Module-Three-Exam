@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { IncidentService } from 'src/app/shared/services/incident.service';
 
 @Component({
   selector: 'app-report',
@@ -22,11 +23,30 @@ export class ReportComponent {
   isEditMode: boolean = false;
 
   // Injecting the required dependencies
-  constructor(private location: Location) {}
+  constructor(
+    private incidentService: IncidentService,
+    private location: Location
+  ) {}
 
   // This function is invoked when the user clicks on the submit button
   onSubmitClick() {
-    console.log(this.userInput);
+    // Setting the loading state
+    this.isLoading = true;
+
+    // Calling the API
+    this.incidentService.createIncident(this.userInput).subscribe({
+      // Success State
+      next: () => {
+        this.isLoading = false;
+        this.location.back();
+      },
+
+      // Error State
+      error: (error: Error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message;
+      },
+    });
   }
 
   // This function is invoked when the user clicks on the cancel button
