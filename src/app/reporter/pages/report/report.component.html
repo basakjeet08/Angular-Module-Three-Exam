@@ -36,56 +36,76 @@
   </div>
 
   <!-- Priority Container -->
-  <div class="col-container">
-    <input
-      type="text"
-      name="priority"
-      placeholder="Priority - (LOW | MEDIUM | HIGH)"
-      required
-      [(ngModel)]="userInput.priority"
-      #priority="ngModel"
-      [disabled]="isEditMode"
-    />
+  <div class="row-container center">
+    Priority :
 
-    <!-- This is the error text for the priority -->
-    <p
-      class="error-text"
-      *ngIf="
-        priority.touched &&
-        (priority.invalid ||
-          (priority.value !== 'LOW' &&
-            priority.value !== 'MEDIUM' &&
-            priority.value !== 'HIGH'))
-      "
-    >
-      Please enter a valid priority !!
-    </p>
+    <label>
+      <input
+        type="radio"
+        name="priority"
+        [disabled]="isEditMode"
+        value="LOW"
+        [(ngModel)]="userInput.priority"
+      />
+      Low
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="priority"
+        [disabled]="isEditMode"
+        value="MEDIUM"
+        [(ngModel)]="userInput.priority"
+      />
+      Medium
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="priority"
+        value="HIGH"
+        [(ngModel)]="userInput.priority"
+        [disabled]="isEditMode"
+      />
+      High
+    </label>
   </div>
 
   <!-- Status Container -->
-  <div class="col-container" *ngIf="isEditMode">
-    <input
-      type="text"
-      name="status"
-      placeholder="Set Status - (OPEN | IN-PROGRESS | CLOSED)"
-      required
-      [(ngModel)]="userInput.status"
-      #priority="ngModel"
-    />
+  <div class="row-container center" *ngIf="isEditMode">
+    Status :
 
-    <!-- This is the error text for the status -->
-    <p
-      class="error-text"
-      *ngIf="
-        priority.touched &&
-        (priority.invalid ||
-          (priority.value !== 'OPEN' &&
-            priority.value !== 'IN-PROGRESS' &&
-            priority.value !== 'CLOSED'))
-      "
-    >
-      Please enter a valid Status !!
-    </p>
+    <label>
+      <input
+        type="radio"
+        name="status"
+        value="OPEN"
+        [(ngModel)]="userInput.status"
+      />
+      Open
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="status"
+        value="IN-PROGRESS"
+        [(ngModel)]="userInput.status"
+      />
+      In-Progress
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="status"
+        value="CLOSED"
+        [(ngModel)]="userInput.status"
+      />
+      Closed
+    </label>
   </div>
 
   <!-- Status Container -->

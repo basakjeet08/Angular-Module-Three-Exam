@@ -14,7 +14,7 @@ export class ReportComponent implements OnInit {
   userInput = {
     id: '',
     title: '',
-    priority: '',
+    priority: 'LOW',
     reportedBy: '',
     status: 'OPEN',
     comment: '',

@@ -12,7 +12,7 @@ export class RegisterComponent {
   userInput = {
     name: '',
     email: '',
-    role: '',
+    role: 'REPORTER',
     password: '',
     confirmPassword: '',
   };

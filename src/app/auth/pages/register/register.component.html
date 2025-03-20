@@ -52,29 +52,6 @@
     </p>
   </div>
 
-  <!-- Role Container -->
-  <div class="col-container">
-    <input
-      type="text"
-      name="role"
-      placeholder="Role - (REPORTER | ADMIN)"
-      required
-      [(ngModel)]="userInput.role"
-      #role="ngModel"
-    />
-
-    <!-- This is the error text for the role -->
-    <p
-      class="error-text"
-      *ngIf="
-        role.touched &&
-        (role.invalid || (role.value !== 'REPORTER' && role.value !== 'ADMIN'))
-      "
-    >
-      Please enter a valid role !!
-    </p>
-  </div>
-
   <!-- Password Container -->
   <div class="col-container">
     <input
@@ -114,6 +91,31 @@
     >
       Please recheck the password field and this field
     </p>
+  </div>
+
+  <!-- Role Container -->
+  <div class="row-container center">
+    <!-- Option Admin -->
+    <label>
+      <input
+        type="radio"
+        name="role"
+        value="ADMIN"
+        [(ngModel)]="userInput.role"
+      />
+      Admin
+    </label>
+
+    <!-- Option Reporter -->
+    <label>
+      <input
+        type="radio"
+        name="role"
+        value="REPORTER"
+        [(ngModel)]="userInput.role"
+      />
+      Reporter
+    </label>
   </div>
 
   <!-- Button Containers -->
