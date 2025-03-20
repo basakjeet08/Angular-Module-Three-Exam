@@ -55,4 +55,18 @@ export class IncidentService {
       .get<{ [key: string]: Incident }>(`${this.url}.json`)
       .pipe(map((response) => mapFirebaseListResponse(response)));
   }
+
+  // This function fetches incidents and filters them by user id
+  fetchIncidentsAndFilterById() {
+    // Fetching the current user Id
+    const currentUserId = this.profileService.getUser()?.id || 'Invalid Id';
+
+    return this.fetchIncidents().pipe(
+      map((incidentList) =>
+        incidentList.filter(
+          (incident) => incident.reportedById === currentUserId
+        )
+      )
+    );
+  }
 }
