@@ -34,8 +34,6 @@ export class IncidentsComponent implements OnInit {
       next: (incidentList: Incident[]) => {
         this.isLoading = false;
         this.incidentList = incidentList;
-
-        console.log(incidentList);
       },
 
       // Error State
