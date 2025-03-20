@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
@@ -16,7 +17,11 @@ export class IncidentsComponent implements OnInit {
   errorMessage: string | null = null;
 
   // Injecting the necessary dependencies
-  constructor(private incidentService: IncidentService) {}
+  constructor(
+    private incidentService: IncidentService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   // Fetching the incident list
   ngOnInit(): void {
@@ -42,6 +47,21 @@ export class IncidentsComponent implements OnInit {
         this.errorMessage = error.message;
       },
     });
+  }
+
+  // This function is invoked when the user clicks on the assign button
+  onAssignClick(incidentId: string) {
+    this.router.navigate(['../', 'assign'], {
+      relativeTo: this.route,
+      queryParams: {
+        incidentId: incidentId,
+      },
+    });
+  }
+
+  // This function is executed when the user clicks on the mark as resolve button
+  markAsResolvedClick(incidentId: string) {
+    console.log(incidentId);
   }
 
   // This function is invoked when the user clicks on the cancel button in the error card

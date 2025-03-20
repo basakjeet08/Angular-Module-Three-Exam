@@ -52,7 +52,7 @@ export class IncidentService {
   // This function fetches all the incidents for the user
   fetchIncidents() {
     return this.http
-      .get<{ [key: string]: Incident }>(`${this.url}.json`)
+      .get<{ [key: string]: Incident }>(`${this.url}.json`, this.getHeaders())
       .pipe(map((response) => mapFirebaseListResponse(response)));
   }
 

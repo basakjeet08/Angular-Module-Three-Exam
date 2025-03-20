@@ -16,7 +16,19 @@
   <h2>Incidents Reported . . .</h2>
 
   <div class="col-container" *ngFor="let incident of incidentList">
-    <app-incident-card [incident]="incident" />
+    <app-incident-card [incident]="incident">
+      <!-- Button Container -->
+      <div class="row-container">
+        <button (click)="onAssignClick(incident.id)">Assign To Someone</button>
+
+        <button
+          class="secondary-btn"
+          (click)="markAsResolvedClick(incident.id)"
+        >
+          Mark as Resolved
+        </button>
+      </div>
+    </app-incident-card>
 
     <!-- Horizontal Line -->
     <hr class="center" />
