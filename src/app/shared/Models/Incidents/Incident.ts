@@ -12,6 +12,8 @@ export class Incident {
     readonly reportedById: string,
 
     readonly assignedTo: string,
-    readonly assignedToId: string
+    readonly assignedToId: string,
+
+    readonly comment: string
   ) {}
 }

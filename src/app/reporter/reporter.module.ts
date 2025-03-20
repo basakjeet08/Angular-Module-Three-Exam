@@ -9,6 +9,7 @@ import { reporterGuard } from './guard/reporter.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ReportComponent } from './pages/report/report.component';
 import { IncidentsComponent } from './pages/incidents/incidents.component';
+import { AssignedComponent } from './pages/assigned/assigned.component';
 
 // These are the reported module routes
 const reporterRoutes: Routes = [
@@ -21,6 +22,7 @@ const reporterRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'report', component: ReportComponent },
       { path: 'incidents', component: IncidentsComponent },
+      { path: 'assigned', component: AssignedComponent },
     ],
   },
 ];
@@ -31,6 +33,7 @@ const reporterRoutes: Routes = [
     DashboardComponent,
     ReportComponent,
     IncidentsComponent,
+    AssignedComponent,
   ],
   imports: [
     CommonModule,

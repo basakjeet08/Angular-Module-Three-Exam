@@ -26,6 +26,7 @@
       required
       [(ngModel)]="userInput.title"
       #title="ngModel"
+      [disabled]="isEditMode"
     />
 
     <!-- This is the error text for the title -->
@@ -43,6 +44,7 @@
       required
       [(ngModel)]="userInput.priority"
       #priority="ngModel"
+      [disabled]="isEditMode"
     />
 
     <!-- This is the error text for the priority -->
@@ -77,13 +79,23 @@
       *ngIf="
         priority.touched &&
         (priority.invalid ||
-          (priority.value !== 'LOW' &&
-            priority.value !== 'MEDIUM' &&
-            priority.value !== 'HIGH'))
+          (priority.value !== 'OPEN' &&
+            priority.value !== 'IN-PROGRESS' &&
+            priority.value !== 'CLOSED'))
       "
     >
       Please enter a valid Status !!
     </p>
+  </div>
+
+  <!-- Status Container -->
+  <div class="col-container" *ngIf="isEditMode">
+    <textarea
+      type="text"
+      name="comment"
+      placeholder="Enter a Comment (optional)"
+      [(ngModel)]="userInput.comment"
+    ></textarea>
   </div>
 
   <!-- Button Containers -->

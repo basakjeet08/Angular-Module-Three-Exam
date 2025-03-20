@@ -1,5 +1,7 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
 @Component({
@@ -7,7 +9,7 @@ import { IncidentService } from 'src/app/shared/services/incident.service';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent {
+export class ReportComponent implements OnInit {
   // This is the user data for the component
   userInput = {
     id: '',
@@ -15,6 +17,7 @@ export class ReportComponent {
     priority: '',
     reportedBy: '',
     status: 'OPEN',
+    comment: '',
   };
 
   // These are the loading and error state variables
@@ -25,16 +28,63 @@ export class ReportComponent {
   // Injecting the required dependencies
   constructor(
     private incidentService: IncidentService,
+    private route: ActivatedRoute,
     private location: Location
   ) {}
+
+  // Checking if this is edit mode or add mode
+  ngOnInit(): void {
+    const incidentId = this.route.snapshot.queryParams['incidentId'];
+
+    if (incidentId) {
+      this.isEditMode = true;
+      this.userInput.id = incidentId;
+      this.fetchIncidentDetails(incidentId);
+    }
+  }
+
+  // This function fetches the incident Details
+  fetchIncidentDetails(incidentId: string) {
+    // Stating the loading state
+    this.isLoading = true;
+
+    // Calling the API
+    this.incidentService.fetchIncidentById(incidentId).subscribe({
+      // Success State
+      next: (incident: Incident | null) => {
+        this.isLoading = false;
+
+        if (!incident) {
+          alert('Wrong Incident Id Provided !!');
+          this.location.back();
+        } else {
+          this.userInput.priority = incident.priority;
+          this.userInput.reportedBy = incident.reportedBy;
+          this.userInput.status = incident.status;
+          this.userInput.title = incident.title;
+          this.userInput.comment = incident.comment;
+        }
+      },
+
+      // Error State
+      error: (error: Error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message;
+      },
+    });
+  }
 
   // This function is invoked when the user clicks on the submit button
   onSubmitClick() {
     // Setting the loading state
     this.isLoading = true;
 
+    const observable = this.isEditMode
+      ? this.incidentService.updateIncident(this.userInput)
+      : this.incidentService.createIncident(this.userInput);
+
     // Calling the API
-    this.incidentService.createIncident(this.userInput).subscribe({
+    observable.subscribe({
       // Success State
       next: () => {
         this.isLoading = false;

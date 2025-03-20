@@ -4,7 +4,10 @@ import { BASE_URL, INCIDENT_ENDPOINT } from '../constants/url-constants';
 import { ProfileService } from './profile.service';
 import { Incident } from '../Models/Incidents/Incident';
 import { map } from 'rxjs';
-import { mapFirebaseListResponse } from '../utils/firebase-object-mapper';
+import {
+  mapFirebaseListResponse,
+  mapFirebaseObjectResponse,
+} from '../utils/firebase-object-mapper';
 
 @Injectable({ providedIn: 'root' })
 export class IncidentService {
@@ -75,6 +78,42 @@ export class IncidentService {
     return this.http.patch(
       `${this.url}/${incidentId}.json`,
       { assignedTo, assignedToId },
+      this.getHeaders()
+    );
+  }
+
+  // This function fetches the incidents assigned to the current user
+  fetchIncidentsAssignedToCurrentUser() {
+    // Fetching the current user Id
+    const currentUserId = this.profileService.getUser()?.id || 'Invalid Id';
+
+    return this.fetchIncidents().pipe(
+      map((incidentList) =>
+        incidentList.filter(
+          (incident) => incident.assignedToId === currentUserId
+        )
+      )
+    );
+  }
+
+  // This function fetch the incident by its id
+  fetchIncidentById(incidentId: string) {
+    return this.http
+      .get<Incident | null>(`${this.url}/${incidentId}.json`, this.getHeaders())
+      .pipe(map((response) => mapFirebaseObjectResponse(response, incidentId)));
+  }
+
+  // This function updates a old Incident
+  updateIncident(incident: {
+    id: string;
+    title: string;
+    priority: string;
+    status: string;
+    comment: string;
+  }) {
+    return this.http.patch(
+      `${this.url}/${incident.id}.json`,
+      incident,
       this.getHeaders()
     );
   }

@@ -19,4 +19,9 @@ export class DashboardComponent {
   onReportIncidentClick() {
     this.router.navigate(['../', 'report'], { relativeTo: this.route });
   }
+
+  // This function is invoked when the user clicks on the assigned incidents button
+  onCheckAssignedIncidentsClick() {
+    this.router.navigate(['../', 'assigned'], { relativeTo: this.route });
+  }
 }

@@ -13,7 +13,7 @@
     </p>
   </div>
 
-  <!-- Card container to view Incident List Page -->
+  <!-- Card container to view Report New Incident Page -->
   <div
     class="card-container col-container card-hover"
     (click)="onReportIncidentClick()"
@@ -24,6 +24,20 @@
       Click this card to head to the
       <span class="highlight">report new Incident Page</span> where you can
       report new incidents.
+    </p>
+  </div>
+
+  <!-- Card container to view Assigned Incident List Page -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onCheckAssignedIncidentsClick()"
+  >
+    <h3>Check Incidents Assigned . . .</h3>
+
+    <p>
+      Click this card to head to the
+      <span class="highlight">Assigned Incident list Page</span> where you can
+      check and resolve the incidents assigned to you.
     </p>
   </div>
 </div>
