@@ -40,4 +40,11 @@ export class ProfileService {
 
     localStorage.setItem(this.USER_DATA_TOKEN, JSON.stringify(user));
   }
+
+  // This function logs out the user
+  logout() {
+    this.user = undefined;
+    this.userSubject.next(this.getUser());
+    localStorage.removeItem(this.USER_DATA_TOKEN);
+  }
 }
