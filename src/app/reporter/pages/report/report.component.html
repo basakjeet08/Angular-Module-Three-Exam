@@ -23,10 +23,10 @@
       type="text"
       name="title"
       placeholder="Set the Title"
+      [disabled]="isEditMode"
       required
       [(ngModel)]="userInput.title"
       #title="ngModel"
-      [disabled]="isEditMode"
     />
 
     <!-- This is the error text for the title -->
@@ -65,9 +65,9 @@
       <input
         type="radio"
         name="priority"
+        [disabled]="isEditMode"
         value="HIGH"
         [(ngModel)]="userInput.priority"
-        [disabled]="isEditMode"
       />
       High
     </label>
@@ -120,7 +120,9 @@
 
   <!-- Button Containers -->
   <div class="row-container">
-    <button type="submit" [disabled]="formContainer.invalid">Report</button>
+    <button type="submit" class="flex" [disabled]="formContainer.invalid">
+      Report
+    </button>
     <button type="button" class="destructive-btn" (click)="onCancelClick()">
       Cancel and Go Back
     </button>

@@ -1,3 +1,15 @@
 :host {
   width: 100%;
 }
+
+.high {
+  background-color: #ff050531;
+}
+
+.med {
+  background-color: #f5914f42;
+}
+
+.low {
+  background-color: #adf54f60;
+}

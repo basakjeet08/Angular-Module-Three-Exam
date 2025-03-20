@@ -1,9 +1,18 @@
-<div class="card-container col-container">
+<div
+  class="card-container col-container"
+  [ngClass]="{
+    high: incidentPriority === 'HIGH',
+    med: incidentPriority === 'MEDIUM',
+    low: incidentPriority === 'LOW'
+  }"
+>
   <h3>{{ incident?.title }}</h3>
   <p>Reported By : {{ incident?.reportedBy }}</p>
 
   <p>Priority : {{ incident?.priority }}</p>
   <p>Status : {{ incident?.status }}</p>
+  <p *ngIf="incident?.assignedTo">Assigned To : {{ incident?.assignedTo }}</p>
+  <p *ngIf="incident?.comment">Comment : {{ incident?.comment }}</p>
 
   <!-- Content Passed by parent -->
   <ng-content />

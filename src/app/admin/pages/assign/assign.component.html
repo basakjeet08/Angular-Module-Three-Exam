@@ -8,10 +8,10 @@
   (onCancelClick)="onErrorCancelClick()"
 />
 
-<!-- Container for all the Incidents -->
 <div class="names-container col-container" *ngIf="!isLoading && !errorMessage">
   <h2>Assign Incident</h2>
 
+  <!-- Each Reporter Component -->
   <div class="card-container row-container space" *ngFor="let user of userList">
     <p>{{ user.name }}</p>
 
