@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { scaleUpAnimation } from 'src/app/shared/animations/scale-up-animation';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
@@ -8,6 +9,7 @@ import { IncidentService } from 'src/app/shared/services/incident.service';
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
+  animations: [scaleUpAnimation],
 })
 export class ReportComponent implements OnInit {
   // This is the user data for the component

@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
 import { User } from 'src/app/shared/Models/User/User';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -9,6 +10,7 @@ import { UserService } from 'src/app/shared/services/user.service';
   selector: 'app-assign',
   templateUrl: './assign.component.html',
   styleUrls: ['./assign.component.css'],
+  animations: [staggerAnimation],
 })
 export class AssignComponent implements OnInit {
   // These are the data for this component

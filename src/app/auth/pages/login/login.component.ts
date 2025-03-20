@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { scaleUpAnimation } from 'src/app/shared/animations/scale-up-animation';
 import { User } from 'src/app/shared/Models/User/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -7,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  animations: [scaleUpAnimation],
 })
 export class LoginComponent {
   // This is the user data for the component

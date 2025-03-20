@@ -8,7 +8,11 @@
   (onCancelClick)="onErrorCancelClick()"
 />
 
-<div class="names-container col-container" *ngIf="!isLoading && !errorMessage">
+<div
+  class="names-container col-container"
+  *ngIf="!isLoading && !errorMessage"
+  @staggeredAnimation
+>
   <h2>Assign Incident</h2>
 
   <!-- Each Reporter Component -->

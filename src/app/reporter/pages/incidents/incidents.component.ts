@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
@@ -6,6 +7,7 @@ import { IncidentService } from 'src/app/shared/services/incident.service';
   selector: 'app-incidents',
   templateUrl: './incidents.component.html',
   styleUrls: ['./incidents.component.css'],
+  animations: [staggerAnimation],
 })
 export class IncidentsComponent implements OnInit {
   // These are the data for the component

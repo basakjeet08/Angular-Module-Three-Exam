@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
@@ -7,6 +8,7 @@ import { IncidentService } from 'src/app/shared/services/incident.service';
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',
   styleUrls: ['./assigned.component.css'],
+  animations: [staggerAnimation],
 })
 export class AssignedComponent implements OnInit {
   // These are the data for the component
