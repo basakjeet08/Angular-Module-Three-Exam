@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/shared/Models/User/User';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +17,34 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   // Injecting the required dependencies
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   // This function is invoked when the user clicks on the submit button
   onSubmitClick() {
-    console.log(this.userInput);
+    // Setting the loading state
+    this.isLoading = true;
+
+    // Calling the api
+    this.authService.loginUser(this.userInput).subscribe({
+      // Success State
+      next: (user: User) => {
+        this.isLoading = false;
+        const role = user.role.toLowerCase();
+
+        // Redirecting to the user's role dashboard
+        this.router.navigate(['../../', role], { relativeTo: this.route });
+      },
+
+      // Error State
+      error: (error: Error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message;
+      },
+    });
   }
 
   // This function is invoked when the user clicks on the go to register page button
