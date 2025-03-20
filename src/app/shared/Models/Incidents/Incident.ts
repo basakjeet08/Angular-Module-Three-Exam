@@ -9,6 +9,9 @@ export class Incident {
     readonly status: IncidentStatus,
 
     readonly reportedBy: string,
-    readonly reportedById: string
+    readonly reportedById: string,
+
+    readonly assignedTo: string,
+    readonly assignedToId: string
   ) {}
 }

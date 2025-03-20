@@ -1,6 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/shared/Models/User/User';
+import { IncidentService } from 'src/app/shared/services/incident.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -20,6 +22,8 @@ export class AssignComponent implements OnInit {
   // Injecting the necessary dependencies
   constructor(
     private userService: UserService,
+    private incidentService: IncidentService,
+    private location: Location,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -56,5 +60,32 @@ export class AssignComponent implements OnInit {
         this.errorMessage = error.message;
       },
     });
+  }
+
+  // This function is ionvoked when the user clicks on the assign button
+  onAssignClick(userId: string, name: string) {
+    // Setting the loading state
+    this.isLoading = false;
+
+    this.incidentService
+      .assignReporter(this.incidentId, name, userId)
+      .subscribe({
+        // Success State
+        next: () => {
+          this.isLoading = false;
+          this.location.back();
+        },
+
+        // Error state
+        error: (error: Error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message;
+        },
+      });
+  }
+
+  // This function is invoked when the user clicks on the cancel button in the error card
+  onErrorCancelClick() {
+    this.errorMessage = null;
   }
 }

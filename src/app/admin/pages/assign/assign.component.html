@@ -1,1 +1,22 @@
-<p>assign works!</p>
+<!-- This is the loading state -->
+<app-loader *ngIf="isLoading" [isLoading]="isLoading" />
+
+<!-- This is the error state -->
+<app-error-card
+  *ngIf="errorMessage"
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- Container for all the Incidents -->
+<div class="names-container col-container" *ngIf="!isLoading && !errorMessage">
+  <h2>Assign Incident</h2>
+
+  <div class="card-container row-container space" *ngFor="let user of userList">
+    <p>{{ user.name }}</p>
+
+    <button class="secondary-btn" (click)="onAssignClick(user.id, user.name)">
+      Assign
+    </button>
+  </div>
+</div>

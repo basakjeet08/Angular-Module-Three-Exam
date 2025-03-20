@@ -19,11 +19,17 @@
     <app-incident-card [incident]="incident">
       <!-- Button Container -->
       <div class="row-container">
-        <button (click)="onAssignClick(incident.id)">Assign To Someone</button>
+        <button
+          (click)="onAssignClick(incident.id)"
+          *ngIf="!incident.assignedTo"
+        >
+          Assign To Someone
+        </button>
 
         <button
           class="secondary-btn"
           (click)="markAsResolvedClick(incident.id)"
+          *ngIf="incident.assignedTo"
         >
           Mark as Resolved
         </button>

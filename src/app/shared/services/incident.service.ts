@@ -69,4 +69,13 @@ export class IncidentService {
       )
     );
   }
+
+  // This function assigns reporter to the incident
+  assignReporter(incidentId: string, assignedTo: string, assignedToId: string) {
+    return this.http.patch(
+      `${this.url}/${incidentId}.json`,
+      { assignedTo, assignedToId },
+      this.getHeaders()
+    );
+  }
 }
