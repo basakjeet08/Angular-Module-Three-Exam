@@ -1,1 +1,96 @@
-<p>report works!</p>
+<!-- This is the loading state -->
+<app-loader *ngIf="isLoading" [isLoading]="isLoading" />
+
+<!-- This is the error state -->
+<app-error-card
+  *ngIf="errorMessage"
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- This is the Idle state of the form -->
+<form
+  *ngIf="!isLoading && !errorMessage"
+  class="card-container col-container form-container"
+  (ngSubmit)="onSubmitClick()"
+  #formContainer="ngForm"
+>
+  <h2>Report Incident</h2>
+
+  <!-- Title Container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="title"
+      placeholder="Set the Title"
+      required
+      [(ngModel)]="userInput.title"
+      #title="ngModel"
+    />
+
+    <!-- This is the error text for the title -->
+    <p class="error-text" *ngIf="title.touched && title.invalid">
+      Please enter a valid title !!
+    </p>
+  </div>
+
+  <!-- Priority Container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="priority"
+      placeholder="Priority - (LOW | MEDIUM | HIGH)"
+      required
+      [(ngModel)]="userInput.priority"
+      #priority="ngModel"
+    />
+
+    <!-- This is the error text for the priority -->
+    <p
+      class="error-text"
+      *ngIf="
+        priority.touched &&
+        (priority.invalid ||
+          (priority.value !== 'LOW' &&
+            priority.value !== 'MEDIUM' &&
+            priority.value !== 'HIGH'))
+      "
+    >
+      Please enter a valid priority !!
+    </p>
+  </div>
+
+  <!-- Status Container -->
+  <div class="col-container" *ngIf="isEditMode">
+    <input
+      type="text"
+      name="status"
+      placeholder="Set Status - (OPEN | IN-PROGRESS | CLOSED)"
+      required
+      [(ngModel)]="userInput.status"
+      #priority="ngModel"
+    />
+
+    <!-- This is the error text for the status -->
+    <p
+      class="error-text"
+      *ngIf="
+        priority.touched &&
+        (priority.invalid ||
+          (priority.value !== 'LOW' &&
+            priority.value !== 'MEDIUM' &&
+            priority.value !== 'HIGH'))
+      "
+    >
+      Please enter a valid Status !!
+    </p>
+  </div>
+
+  <!-- Button Containers -->
+  <div class="row-container">
+    <button type="submit" [disabled]="formContainer.invalid">Report</button>
+    <button type="button" class="destructive-btn" (click)="onCancelClick()">
+      Cancel and Go Back
+    </button>
+  </div>
+</form>

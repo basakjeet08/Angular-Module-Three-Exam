@@ -1,1 +1,29 @@
-<p>dashboard works!</p>
+<div class="grid-container">
+  <!-- Card container to view Incident List Page -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onIncidentPageClick()"
+  >
+    <h3>View Incident List . . .</h3>
+
+    <p>
+      Click this card to head to the
+      <span class="highlight">incident List Page</span> where you can view all
+      the incidents you reported and were assigned to you.
+    </p>
+  </div>
+
+  <!-- Card container to view Incident List Page -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onReportIncidentClick()"
+  >
+    <h3>Report New Incident Click . . .</h3>
+
+    <p>
+      Click this card to head to the
+      <span class="highlight">report new Incident Page</span> where you can
+      report new incidents.
+    </p>
+  </div>
+</div>
