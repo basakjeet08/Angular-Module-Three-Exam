@@ -1,1 +1,134 @@
-<p>register works!</p>
+<!-- This is the loading state -->
+<app-loader *ngIf="isLoading" [isLoading]="isLoading" />
+
+<!-- This is the error state -->
+<app-error-card
+  *ngIf="errorMessage"
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- This is the Idle state of the form -->
+<form
+  *ngIf="!isLoading && !errorMessage"
+  class="card-container col-container form-container"
+  (ngSubmit)="onSubmitClick()"
+  #formContainer="ngForm"
+>
+  <h2>Register Form</h2>
+
+  <!-- Name Container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="name"
+      placeholder="Enter you Name"
+      required
+      [(ngModel)]="userInput.name"
+      #name="ngModel"
+    />
+
+    <!-- This is the error text for the name -->
+    <p class="error-text" *ngIf="name.touched && name.invalid">
+      Please enter a valid name !!
+    </p>
+  </div>
+
+  <!-- Email Container -->
+  <div class="col-container">
+    <input
+      type="email"
+      name="email"
+      placeholder="Enter you Email"
+      required
+      email
+      [(ngModel)]="userInput.email"
+      #email="ngModel"
+    />
+
+    <!-- This is the error text for the email -->
+    <p class="error-text" *ngIf="email.touched && email.invalid">
+      Please enter a valid email address !!
+    </p>
+  </div>
+
+  <!-- Role Container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="role"
+      placeholder="Role - (REPORTER | ADMIN)"
+      required
+      [(ngModel)]="userInput.role"
+      #role="ngModel"
+    />
+
+    <!-- This is the error text for the role -->
+    <p
+      class="error-text"
+      *ngIf="
+        role.touched &&
+        (role.invalid || (role.value !== 'REPORTER' && role.value !== 'ADMIN'))
+      "
+    >
+      Please enter a valid role !!
+    </p>
+  </div>
+
+  <!-- Password Container -->
+  <div class="col-container">
+    <input
+      type="password"
+      name="password"
+      placeholder="Enter you Password"
+      required
+      minlength="5"
+      [(ngModel)]="userInput.password"
+      #password="ngModel"
+    />
+
+    <!-- This is the error text for the password -->
+    <p class="error-text" *ngIf="password.touched && password.invalid">
+      Please enter a valid password !!
+    </p>
+  </div>
+
+  <!-- Confirm Password Container -->
+  <div class="col-container">
+    <input
+      type="password"
+      name="confirmPassword"
+      placeholder="Re - Enter Password"
+      required
+      [(ngModel)]="userInput.confirmPassword"
+      #confirmPassword="ngModel"
+    />
+
+    <!-- This is the error text for the password -->
+    <p
+      class="error-text"
+      *ngIf="
+        confirmPassword.touched &&
+        (password.invalid || confirmPassword.value !== password.value)
+      "
+    >
+      Please recheck the password field and this field
+    </p>
+  </div>
+
+  <!-- Button Containers -->
+  <div class="row-container">
+    <button
+      type="submit"
+      [disabled]="
+        formContainer.invalid || confirmPassword.value !== password.value
+      "
+    >
+      Register
+    </button>
+
+    <button type="button" class="destructive-btn" (click)="OnGoToLogin()">
+      Go To Login Page
+    </button>
+  </div>
+</form>
