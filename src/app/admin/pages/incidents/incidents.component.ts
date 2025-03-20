@@ -59,11 +59,6 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
-  // This function is executed when the user clicks on the mark as resolve button
-  markAsResolvedClick(incidentId: string) {
-    console.log(incidentId);
-  }
-
   // This function is invoked when the user clicks on the cancel button in the error card
   onErrorCancelClick() {
     this.errorMessage = null;
