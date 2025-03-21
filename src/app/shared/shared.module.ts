@@ -4,6 +4,10 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ErrorCardComponent } from './components/error-card/error-card.component';
 import { IncidentCardComponent } from './components/incident-card/incident-card.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ButtonModule } from 'primeng/button';
+
+// These are the required Prime Ng Template Components
+const PrimeNgModules = [ButtonModule];
 
 @NgModule({
   declarations: [
@@ -12,12 +16,13 @@ import { HeaderComponent } from './components/header/header.component';
     IncidentCardComponent,
     HeaderComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, PrimeNgModules],
   exports: [
     LoaderComponent,
     ErrorCardComponent,
     IncidentCardComponent,
     HeaderComponent,
+    PrimeNgModules,
   ],
 })
 export class SharedModule {}
