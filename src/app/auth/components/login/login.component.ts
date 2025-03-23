@@ -1,46 +1,48 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { scaleUpAnimation } from 'src/app/shared/animations/scale-up-animation';
 import { LoaderService } from 'src/app/shared/components/loader/loader.service';
 import { ToastService } from 'src/app/shared/components/toast/toast.service';
+import { User } from 'src/app/shared/Models/User/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   animations: [scaleUpAnimation],
 })
-export class RegisterComponent {
-  // This is the user data for the component
-  userInput = {
-    name: '',
-    email: '',
-    role: 'REPORTER',
-    password: '',
-    confirmPassword: '',
-  };
+export class LoginComponent {
+  // These are the details inputted by the user
+  userInput = { email: '', password: '' };
+
+  // These are the event emitters which will notify the parent about the api state
+  @Output('onSuccess') successEmitter = new EventEmitter<string>();
 
   // Injecting the required dependencies
   constructor(
     private authService: AuthService,
     private toastService: ToastService,
-    private loaderService: LoaderService,
-    private router: Router,
-    private route: ActivatedRoute
+    private loaderService: LoaderService
   ) {}
 
   // This function is invoked when the user clicks on the submit button
-  onSubmitClick() {
+  onLoginClick() {
     // Setting the loading state
     this.loaderService.startLoading();
 
     // Calling the api
-    this.authService.registerUser(this.userInput).subscribe({
+    this.authService.loginUser(this.userInput).subscribe({
       // Success State
-      next: () => {
+      next: (user: User) => {
         this.loaderService.endLoading();
-        this.router.navigate(['../', 'login'], { relativeTo: this.route });
+        const role = user.role.toLowerCase();
+
+        this.toastService.showToast({
+          type: 'success',
+          message: 'User logged in successfully !!',
+        });
+
+        this.successEmitter.emit(role);
       },
 
       // Error State
@@ -49,10 +51,5 @@ export class RegisterComponent {
         this.toastService.showToast({ type: 'error', message: error.message });
       },
     });
-  }
-
-  // This function is invoked when the user clicks on the go to login page button
-  OnGoToLogin() {
-    this.router.navigate(['../', 'login'], { relativeTo: this.route });
   }
 }
