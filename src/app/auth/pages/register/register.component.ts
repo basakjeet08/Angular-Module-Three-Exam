@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { scaleUpAnimation } from 'src/app/shared/animations/scale-up-animation';
+import { LoaderService } from 'src/app/shared/components/loader/loader.service';
+import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -19,13 +21,11 @@ export class RegisterComponent {
     confirmPassword: '',
   };
 
-  // These are the loading and error state variables
-  isLoading: boolean = false;
-  errorMessage: string | null = null;
-
   // Injecting the required dependencies
   constructor(
     private authService: AuthService,
+    private toastService: ToastService,
+    private loaderService: LoaderService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -33,20 +33,20 @@ export class RegisterComponent {
   // This function is invoked when the user clicks on the submit button
   onSubmitClick() {
     // Setting the loading state
-    this.isLoading = true;
+    this.loaderService.startLoading();
 
     // Calling the api
     this.authService.registerUser(this.userInput).subscribe({
       // Success State
       next: () => {
-        this.isLoading = false;
+        this.loaderService.endLoading();
         this.router.navigate(['../', 'login'], { relativeTo: this.route });
       },
 
       // Error State
       error: (error: Error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message;
+        this.loaderService.endLoading();
+        this.toastService.showToast({ type: 'error', message: error.message });
       },
     });
   }
@@ -54,10 +54,5 @@ export class RegisterComponent {
   // This function is invoked when the user clicks on the go to login page button
   OnGoToLogin() {
     this.router.navigate(['../', 'login'], { relativeTo: this.route });
-  }
-
-  // This function is invoked when the user clicks on the cancel button in the error card
-  onErrorCancelClick() {
-    this.errorMessage = null;
   }
 }

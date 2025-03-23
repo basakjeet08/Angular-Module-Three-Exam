@@ -1,18 +1,4 @@
-<!-- This is the loading state -->
-<app-loader *ngIf="isLoading" [isLoading]="isLoading" />
-
-<!-- This is the error state -->
-<app-error-card
-  *ngIf="errorMessage"
-  [errorMessage]="errorMessage"
-  (onCancelClick)="onErrorCancelClick()"
-/>
-
-<div
-  class="incident-container col-container"
-  *ngIf="!isLoading && !errorMessage"
-  @staggeredAnimation
->
+<div class="incident-container col-container" @staggeredAnimation>
   <h2>Incidents Reported by You . . .</h2>
 
   <div class="col-container" *ngFor="let incident of incidentList">
