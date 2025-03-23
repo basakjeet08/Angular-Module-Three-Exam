@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
+import { LoaderService } from 'src/app/shared/components/loader/loader.service';
+import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
@@ -14,13 +16,11 @@ export class AssignedComponent implements OnInit {
   // These are the data for the component
   incidentList: Incident[] = [];
 
-  // These denote the loading and error state
-  isLoading: boolean = false;
-  errorMessage: string | null = null;
-
   // Injecting the necessary dependencies
   constructor(
     private incidentService: IncidentService,
+    private toastService: ToastService,
+    private loaderService: LoaderService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -33,20 +33,27 @@ export class AssignedComponent implements OnInit {
   // This function fetches all the incidents of the current user
   fetchIncidents() {
     // Setting the loading state
-    this.isLoading = true;
+    this.loaderService.startLoading();
 
     // Calling the api
     this.incidentService.fetchIncidentsAssignedToCurrentUser().subscribe({
       // Success State
       next: (incidentList: Incident[]) => {
-        this.isLoading = false;
+        this.loaderService.endLoading();
         this.incidentList = incidentList;
+
+        if (incidentList.length === 0) {
+          this.toastService.showToast({
+            type: 'info',
+            message: 'There are no incidents reported !!',
+          });
+        }
       },
 
       // Error State
       error: (error: Error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message;
+        this.loaderService.endLoading();
+        this.toastService.showToast({ type: 'error', message: error.message });
       },
     });
   }
@@ -57,10 +64,5 @@ export class AssignedComponent implements OnInit {
       relativeTo: this.route,
       queryParams: { incidentId },
     });
-  }
-
-  // This function is invoked when the user clicks on the cancel button in the error card
-  onErrorCancelClick() {
-    this.errorMessage = null;
   }
 }

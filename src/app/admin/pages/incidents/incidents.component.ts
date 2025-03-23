@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
+import { LoaderService } from 'src/app/shared/components/loader/loader.service';
+import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
+import { IncidentStatus } from 'src/app/shared/Models/Incidents/Status';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
 @Component({
@@ -14,13 +17,21 @@ export class IncidentsComponent implements OnInit {
   // These are the data for the component
   incidentList: Incident[] = [];
 
-  // These denote the loading and error state
-  isLoading: boolean = false;
-  errorMessage: string | null = null;
+  // This variable contains by what it should be categorized
+  categories = [
+    IncidentStatus.OPEN,
+    IncidentStatus.IN_PROGRESS,
+    IncidentStatus.CLOSED,
+    'All',
+  ];
+
+  activeIndex = 0;
 
   // Injecting the necessary dependencies
   constructor(
     private incidentService: IncidentService,
+    private toastService: ToastService,
+    private loaderService: LoaderService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -33,22 +44,39 @@ export class IncidentsComponent implements OnInit {
   // This function fetches all the incidents
   fetchIncidents() {
     // Setting the loading state
-    this.isLoading = true;
+    this.loaderService.startLoading();
+    const currentCategory = this.categories[this.activeIndex];
 
     // Calling the api
-    this.incidentService.fetchIncidents().subscribe({
+    this.incidentService.fetchIncidentByStatus(currentCategory).subscribe({
       // Success State
       next: (incidentList: Incident[]) => {
-        this.isLoading = false;
+        this.loaderService.endLoading();
+
+        // Showing the success toast
+        this.toastService.showToast({
+          type: 'success',
+          message: 'Incidents fetched successfully !!',
+        });
+
         this.incidentList = incidentList;
       },
 
       // Error State
       error: (error: Error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message;
+        this.loaderService.endLoading();
+        this.toastService.showToast({
+          type: 'error',
+          message: error.message,
+        });
       },
     });
+  }
+
+  // This function is invoked when the user clicks on the category cards
+  onCategorySelect(index: number) {
+    this.activeIndex = index;
+    this.fetchIncidents();
   }
 
   // This function is invoked when the user clicks on the assign button
@@ -59,10 +87,5 @@ export class IncidentsComponent implements OnInit {
         incidentId: incidentId,
       },
     });
-  }
-
-  // This function is invoked when the user clicks on the cancel button in the error card
-  onErrorCancelClick() {
-    this.errorMessage = null;
   }
 }

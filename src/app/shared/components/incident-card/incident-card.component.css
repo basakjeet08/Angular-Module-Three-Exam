@@ -2,14 +2,30 @@
   width: 100%;
 }
 
-.high {
-  background-color: #ff050531;
+.space {
+  justify-content: space-between;
 }
 
-.med {
-  background-color: #f5914f42;
+.high {
+  color: var(--error);
+}
+
+.medium {
+  color: var(--warning);
 }
 
 .low {
-  background-color: #adf54f60;
+  color: var(--accent);
+}
+
+img {
+  height: 48px;
+  width: 48px;
+
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.hr {
+  width: 100%;
 }

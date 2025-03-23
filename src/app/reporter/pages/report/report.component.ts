@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { scaleUpAnimation } from 'src/app/shared/animations/scale-up-animation';
+import { LoaderService } from 'src/app/shared/components/loader/loader.service';
+import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
@@ -21,15 +23,13 @@ export class ReportComponent implements OnInit {
     status: 'OPEN',
     comment: '',
   };
-
-  // These are the loading and error state variables
-  isLoading: boolean = false;
-  errorMessage: string | null = null;
   isEditMode: boolean = false;
 
   // Injecting the required dependencies
   constructor(
     private incidentService: IncidentService,
+    private toastService: ToastService,
+    private loaderService: LoaderService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
@@ -48,16 +48,20 @@ export class ReportComponent implements OnInit {
   // This function fetches the incident Details
   fetchIncidentDetails(incidentId: string) {
     // Stating the loading state
-    this.isLoading = true;
+    this.loaderService.startLoading();
 
     // Calling the API
     this.incidentService.fetchIncidentById(incidentId).subscribe({
       // Success State
       next: (incident: Incident | null) => {
-        this.isLoading = false;
+        this.loaderService.endLoading();
 
         if (!incident) {
-          alert('Wrong Incident Id Provided !!');
+          this.toastService.showToast({
+            type: 'error',
+            message: 'Wrong Incident Id Provided !!',
+          });
+
           this.location.back();
         } else {
           this.userInput.priority = incident.priority;
@@ -70,8 +74,8 @@ export class ReportComponent implements OnInit {
 
       // Error State
       error: (error: Error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message;
+        this.loaderService.endLoading();
+        this.toastService.showToast({ type: 'error', message: error.message });
       },
     });
   }
@@ -79,7 +83,7 @@ export class ReportComponent implements OnInit {
   // This function is invoked when the user clicks on the submit button
   onSubmitClick() {
     // Setting the loading state
-    this.isLoading = true;
+    this.loaderService.startLoading();
 
     const observable = this.isEditMode
       ? this.incidentService.updateIncident(this.userInput)
@@ -89,14 +93,21 @@ export class ReportComponent implements OnInit {
     observable.subscribe({
       // Success State
       next: () => {
-        this.isLoading = false;
+        this.loaderService.endLoading();
+
+        // Showing the success toast
+        this.toastService.showToast({
+          type: 'success',
+          message: 'Incident is reported successfully !!',
+        });
+
         this.location.back();
       },
 
       // Error State
       error: (error: Error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message;
+        this.loaderService.endLoading();
+        this.toastService.showToast({ type: 'error', message: error.message });
       },
     });
   }
@@ -104,10 +115,5 @@ export class ReportComponent implements OnInit {
   // This function is invoked when the user clicks on the cancel button
   onCancelClick() {
     this.location.back();
-  }
-
-  // This function is invoked when the user clicks on the cancel button in the error card
-  onErrorCancelClick() {
-    this.errorMessage = null;
   }
 }

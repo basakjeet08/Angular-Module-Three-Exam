@@ -1,26 +1,27 @@
-<!-- This is the loading state -->
-<app-loader *ngIf="isLoading" [isLoading]="isLoading" />
+<!-- Header Title Container -->
+<div class="w-50 row-container g-16 space">
+  <h2>Incidents Reporteds</h2>
 
-<!-- This is the error state -->
-<app-error-card
-  *ngIf="errorMessage"
-  [errorMessage]="errorMessage"
-  (onCancelClick)="onErrorCancelClick()"
-/>
+  <div class="row-container g-8">
+    <p
+      class="card-container hover-variant p-8 caption-text"
+      [ngClass]="{ active: i === activeIndex }"
+      *ngFor="let category of categories; let i = index"
+      (click)="onCategorySelect(i)"
+    >
+      {{ category | titlecase }}
+    </p>
+  </div>
+</div>
 
 <!-- Container for all the Incidents -->
-<div
-  class="incident-container col-container"
-  *ngIf="!isLoading && !errorMessage"
-  @staggeredAnimation
->
-  <h2>Incidents Reported . . .</h2>
-
-  <div class="col-container" *ngFor="let incident of incidentList">
+<div class="w-50 col-container g-16" @staggeredAnimation>
+  <div class="col-container g-16" *ngFor="let incident of incidentList">
     <app-incident-card [incident]="incident">
       <!-- Button Container -->
-      <div class="row-container">
+      <div>
         <button
+          class="btn btn-accent"
           (click)="onAssignClick(incident.id)"
           [disabled]="incident.assignedTo"
         >

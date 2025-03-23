@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
+import { LoaderService } from 'src/app/shared/components/loader/loader.service';
+import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { User } from 'src/app/shared/Models/User/User';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -17,14 +19,12 @@ export class AssignComponent implements OnInit {
   userList: User[] = [];
   incidentId: string = '';
 
-  // These denote the loading and error state
-  isLoading: boolean = false;
-  errorMessage: string | null = null;
-
   // Injecting the necessary dependencies
   constructor(
     private userService: UserService,
     private incidentService: IncidentService,
+    private toastService: ToastService,
+    private loaderService: LoaderService,
     private location: Location,
     private router: Router,
     private route: ActivatedRoute
@@ -38,7 +38,12 @@ export class AssignComponent implements OnInit {
 
     // If the incident Id is not provided
     if (!this.incidentId) {
-      alert('Invalid Incident Id Passed');
+      this.toastService.showToast({
+        type: 'error',
+        message:
+          'Invalid Incident Id is passed. Please go back and select a proper incident !!',
+      });
+
       this.router.navigate(['../'], { relativeTo: this.route });
     }
   }
@@ -46,20 +51,20 @@ export class AssignComponent implements OnInit {
   // This function fetches the reporters list
   fetchReporterList() {
     // Setting the loading state
-    this.isLoading = true;
+    this.loaderService.startLoading();
 
     // Calling the api
     this.userService.fetchReporters().subscribe({
       // Success State
       next: (userList: User[]) => {
-        this.isLoading = false;
+        this.loaderService.endLoading();
         this.userList = userList;
       },
 
       // Error State
       error: (error: Error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message;
+        this.loaderService.endLoading();
+        this.toastService.showToast({ type: 'error', message: error.message });
       },
     });
   }
@@ -67,27 +72,32 @@ export class AssignComponent implements OnInit {
   // This function is ionvoked when the user clicks on the assign button
   onAssignClick(userId: string, name: string) {
     // Setting the loading state
-    this.isLoading = false;
+    this.loaderService.startLoading();
 
     this.incidentService
       .assignReporter(this.incidentId, name, userId)
       .subscribe({
         // Success State
         next: () => {
-          this.isLoading = false;
+          this.loaderService.endLoading();
+
+          // Success State is shown here
+          this.toastService.showToast({
+            type: 'success',
+            message: `Incident is assigned to ${userId} successfully !!`,
+          });
+
           this.location.back();
         },
 
         // Error state
         error: (error: Error) => {
-          this.isLoading = false;
-          this.errorMessage = error.message;
+          this.loaderService.endLoading();
+          this.toastService.showToast({
+            type: 'error',
+            message: error.message,
+          });
         },
       });
-  }
-
-  // This function is invoked when the user clicks on the cancel button in the error card
-  onErrorCancelClick() {
-    this.errorMessage = null;
   }
 }

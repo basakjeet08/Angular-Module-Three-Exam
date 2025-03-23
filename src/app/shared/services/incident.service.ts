@@ -59,6 +59,17 @@ export class IncidentService {
       .pipe(map((response) => mapFirebaseListResponse(response)));
   }
 
+  // This function fetches the incidents for the user by using the status
+  fetchIncidentByStatus(status: string) {
+    if (status === 'All') return this.fetchIncidents();
+
+    return this.fetchIncidents().pipe(
+      map((incidentList) =>
+        incidentList.filter((incident) => incident.status === status)
+      )
+    );
+  }
+
   // This function fetches incidents and filters them by user id
   fetchIncidentsAndFilterById() {
     // Fetching the current user Id

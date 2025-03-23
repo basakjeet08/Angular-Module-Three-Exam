@@ -1,2 +1,79 @@
-<!-- These are the child routes inside the auth module -->
-<router-outlet />
+<!-- Idle State -->
+<div class="auth-container card-container" @scaleUpAnimation>
+  <!-- Register Component Masked Container -->
+  <div class="auth-item">
+    <!-- Register Component -->
+    <app-register
+      *ngIf="!isLoginMode"
+      class="flex-1 p-40 items-center justify-center"
+      (onSuccess)="onRegistrationSuccess()"
+      @slideLeftAnimation
+    />
+
+    <!-- Register Mask Component -->
+    <div
+      *ngIf="isLoginMode"
+      class="variant-card-container col-container g-32 flex-1 p-24 items-center justify-center z-99"
+      @slideLeftAnimation
+    >
+      <h1>New to the System ?</h1>
+
+      <p class="text-center body-text muted-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos nulla
+        debitis nesciunt dolores in illum autem consectetur id, fuga explicabo
+        cumque error officia, possimus laboriosam.
+      </p>
+
+      <!-- Mock Credentials to Login -->
+      <div class="card-container col-container g-4 p-16">
+        <p class="body-text primary-text">Login Details</p>
+
+        <p class="body-text muted-text">
+          Admin :
+          <span class="accent-text">{{ "admin1@gmail.com -> Anirban" }} </span>
+        </p>
+
+        <p class="body-text muted-text">
+          Reporter :
+          <span class="accent-text"
+            >{{ "reporter1@gmail.com -> Anirban" }}
+          </span>
+        </p>
+      </div>
+
+      <button class="w-70 btn btn-secondary" (click)="toggleAuthMode()">
+        Register User
+      </button>
+    </div>
+  </div>
+
+  <!-- Login Component Masked Container -->
+  <div class="auth-item">
+    <!-- Login Component -->
+    <app-login
+      *ngIf="isLoginMode"
+      class="flex-1 p-40 items-center justify-center"
+      (onSuccess)="onLoginSuccess($event)"
+      @slideRightAnimation
+    />
+
+    <!-- Login Mask Component -->
+    <div
+      *ngIf="!isLoginMode"
+      class="variant-card-container col-container g-32 flex-1 p-24 items-center justify-center z-99"
+      @slideRightAnimation
+    >
+      <h1>Nice to See you Back</h1>
+
+      <p class="text-center body-text muted-text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
+        voluptatibus ut ipsum earum sed! In soluta sunt eos odit dolor sequi
+        asperiores voluptates itaque ratione?
+      </p>
+
+      <button class="w-70 btn btn-secondary" (click)="toggleAuthMode()">
+        Login User
+      </button>
+    </div>
+  </div>
+</div>

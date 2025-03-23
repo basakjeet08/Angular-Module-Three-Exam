@@ -1,19 +1,57 @@
-<div
-  class="card-container col-container"
-  [ngClass]="{
-    high: incidentPriority === 'HIGH',
-    med: incidentPriority === 'MEDIUM',
-    low: incidentPriority === 'LOW'
-  }"
->
-  <h3>{{ incident?.title }}</h3>
-  <p>Reported By : {{ incident?.reportedBy }}</p>
+<div class="card-container col-container g-16 p-16">
+  <!-- Profile Pic and Reported by along with the ng content from the parent -->
+  <div class="row-container g-16 items-center space">
+    <div class="row-container g-16 items-center">
+      <!-- Profile Image -->
+      <img
+        src="https://plus.unsplash.com/premium_vector-1727955579176-073f1c85dcda?q=80&w=2360&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Profile Image"
+      />
 
-  <p>Priority : {{ incident?.priority }}</p>
-  <p>Status : {{ incident?.status }}</p>
-  <p *ngIf="incident?.assignedTo">Assigned To : {{ incident?.assignedTo }}</p>
-  <p *ngIf="incident?.comment">Comment : {{ incident?.comment }}</p>
+      <!-- Reporter Name -->
+      <h4>{{ incident?.reportedBy }}</h4>
+    </div>
 
-  <!-- Content Passed by parent -->
-  <ng-content />
+    <!-- Content Passed by parent -->
+    <ng-content />
+  </div>
+
+  <!-- The actual title or the description of the incident -->
+  <p class="muted-text body-text">
+    <span class="secondary-text body-text">Details -></span>
+    {{ incident?.title }}
+  </p>
+
+  <!-- Comment Container -->
+  <div *ngIf="incident?.comment" class="col-container g-16">
+    <hr class="hr" />
+
+    <p class="body-text muted-text">
+      <span class="accent-text">Comment -> </span> {{ incident?.comment }}
+    </p>
+  </div>
+
+  <!-- Other Details which are kept as tags -->
+  <div class="row-container flex-wrap g-16">
+    <!-- Priority of the incident -->
+    <p
+      class="variant-card-container p-8 caption-text secondary-text"
+      [ngClass]="incident?.priority?.toLowerCase()"
+    >
+      Priority -> {{ incident?.priority | titlecase }}
+    </p>
+
+    <!-- The current status of the incident -->
+    <p class="variant-card-container p-8 caption-text secondary-text">
+      Status -> {{ incident?.status | titlecase }}
+    </p>
+
+    <!-- This is the person to whom the incident is assigned to -->
+    <p
+      *ngIf="incident?.assignedTo"
+      class="variant-card-container p-8 caption-text accent-text"
+    >
+      Assigned To -> {{ incident?.assignedTo }}
+    </p>
+  </div>
 </div>

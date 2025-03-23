@@ -1,25 +1,14 @@
-<!-- This is the loading state -->
-<app-loader *ngIf="isLoading" [isLoading]="isLoading" />
-
-<!-- This is the error state -->
-<app-error-card
-  *ngIf="errorMessage"
-  [errorMessage]="errorMessage"
-  (onCancelClick)="onErrorCancelClick()"
-/>
-
-<div
-  class="names-container col-container"
-  *ngIf="!isLoading && !errorMessage"
-  @staggeredAnimation
->
+<div class="w-50 col-container g-16" @staggeredAnimation>
   <h2>Assign Incident</h2>
 
   <!-- Each Reporter Component -->
-  <div class="card-container row-container space" *ngFor="let user of userList">
-    <p>{{ user.name }}</p>
+  <div
+    class="card-container row-container space p-16 g-16 items-center"
+    *ngFor="let user of userList"
+  >
+    <p class="body-text">{{ user.name }}</p>
 
-    <button class="secondary-btn" (click)="onAssignClick(user.id, user.name)">
+    <button class="btn btn-accent" (click)="onAssignClick(user.id, user.name)">
       Assign
     </button>
   </div>

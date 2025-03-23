@@ -4,21 +4,11 @@ import { AuthComponent } from './auth.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 // These are the routing for the auth module
-const authRoutes: Routes = [
-  {
-    path: '',
-    component: AuthComponent,
-    children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-    ],
-  },
-];
+const authRoutes: Routes = [{ path: '', component: AuthComponent }];
 
 @NgModule({
   declarations: [AuthComponent, LoginComponent, RegisterComponent],

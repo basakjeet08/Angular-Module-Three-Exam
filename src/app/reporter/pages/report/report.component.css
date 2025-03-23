@@ -1,20 +1,11 @@
 :host {
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
   padding: 36px;
 }
 
-.form-container {
-  padding: 40px;
-  gap: 24px;
+.form-size {
+  width: 500px;
 }
 
-.flex {
-  flex: 1;
+label {
+  cursor: pointer;
 }

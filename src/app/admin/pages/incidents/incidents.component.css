@@ -1,16 +1,24 @@
 :host {
-  height: 100%;
   width: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  padding: 36px;
+  padding: 16px;
+  gap: 16px;
 }
 
-.incident-container {
+.w-50 {
   width: 50%;
+}
+
+.space {
+  justify-content: space-between;
+}
+
+.active {
+  color: var(--accent);
 }
 
 .center {
