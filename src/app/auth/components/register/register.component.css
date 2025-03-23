@@ -23,14 +23,11 @@ svg {
   fill: var(--primary);
 }
 
-.info-svg {
-  width: 20px;
-  height: 20px;
-
-  fill: var(--info);
-}
-
 .input-group-container > input {
   flex: 1;
   border: none;
+}
+
+label {
+  cursor: pointer;
 }

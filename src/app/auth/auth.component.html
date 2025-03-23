@@ -16,13 +16,30 @@
       class="variant-card-container col-container g-32 flex-1 p-24 items-center justify-center z-99"
       @slideLeftAnimation
     >
-      <h1>New to the Game ?</h1>
+      <h1>New to the System ?</h1>
 
       <p class="text-center body-text muted-text">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos nulla
         debitis nesciunt dolores in illum autem consectetur id, fuga explicabo
         cumque error officia, possimus laboriosam.
       </p>
+
+      <!-- Mock Credentials to Login -->
+      <div class="card-container col-container g-4 p-16">
+        <p class="body-text primary-text">Login Details</p>
+
+        <p class="body-text muted-text">
+          Admin :
+          <span class="accent-text">{{ "admin1@gmail.com -> Anirban" }} </span>
+        </p>
+
+        <p class="body-text muted-text">
+          Reporter :
+          <span class="accent-text"
+            >{{ "reporter1@gmail.com -> Anirban" }}
+          </span>
+        </p>
+      </div>
 
       <button class="w-70 btn btn-secondary" (click)="toggleAuthMode()">
         Register User
@@ -46,7 +63,7 @@
       class="variant-card-container col-container g-32 flex-1 p-24 items-center justify-center z-99"
       @slideRightAnimation
     >
-      <h1>Old Dog ?</h1>
+      <h1>Nice to See you Back</h1>
 
       <p class="text-center body-text muted-text">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { scaleUpAnimation } from 'src/app/shared/animations/scale-up-animation';
 import { LoaderService } from 'src/app/shared/components/loader/loader.service';
 import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { User } from 'src/app/shared/Models/User/User';
@@ -9,7 +8,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  animations: [scaleUpAnimation],
 })
 export class LoginComponent {
   // These are the details inputted by the user
@@ -35,14 +33,15 @@ export class LoginComponent {
       // Success State
       next: (user: User) => {
         this.loaderService.endLoading();
-        const role = user.role.toLowerCase();
 
+        // Showing the success toast
         this.toastService.showToast({
           type: 'success',
           message: 'User logged in successfully !!',
         });
 
-        this.successEmitter.emit(role);
+        // Passing the sucess event to the parent component
+        this.successEmitter.emit(user.role.toLowerCase());
       },
 
       // Error State

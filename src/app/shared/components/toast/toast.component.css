@@ -21,6 +21,9 @@
 
   border-radius: var(--border-radius);
   backdrop-filter: blur(16px);
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .success {
