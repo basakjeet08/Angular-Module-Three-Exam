@@ -61,6 +61,7 @@ export class ReportComponent implements OnInit {
             type: 'error',
             message: 'Wrong Incident Id Provided !!',
           });
+
           this.location.back();
         } else {
           this.userInput.priority = incident.priority;
@@ -93,6 +94,13 @@ export class ReportComponent implements OnInit {
       // Success State
       next: () => {
         this.loaderService.endLoading();
+
+        // Showing the success toast
+        this.toastService.showToast({
+          type: 'success',
+          message: 'Incident is reported successfully !!',
+        });
+
         this.location.back();
       },
 

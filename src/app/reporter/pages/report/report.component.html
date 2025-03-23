@@ -1,6 +1,6 @@
 <!-- This is the Idle state of the form -->
 <form
-  class="card-container col-container form-container"
+  class="form-size card-container col-container p-40 g-24"
   (ngSubmit)="onSubmitClick()"
   #formContainer="ngForm"
   @scaleUpAnimation
@@ -8,7 +8,7 @@
   <h2>Report Incident</h2>
 
   <!-- Title Container -->
-  <div class="col-container">
+  <div class="col-container g-8">
     <input
       type="text"
       name="title"
@@ -20,38 +20,16 @@
     />
 
     <!-- This is the error text for the title -->
-    <p class="error-text" *ngIf="title.touched && title.invalid">
+    <p class="error-text caption-text" *ngIf="title.touched && title.invalid">
       Please enter a valid title !!
     </p>
   </div>
 
   <!-- Priority Container -->
-  <div class="row-container center">
-    Priority :
+  <div class="row-container g-16 items-center">
+    <p class="muted-text body-text">Priority :</p>
 
-    <label>
-      <input
-        type="radio"
-        name="priority"
-        [disabled]="isEditMode"
-        value="LOW"
-        [(ngModel)]="userInput.priority"
-      />
-      Low
-    </label>
-
-    <label>
-      <input
-        type="radio"
-        name="priority"
-        [disabled]="isEditMode"
-        value="MEDIUM"
-        [(ngModel)]="userInput.priority"
-      />
-      Medium
-    </label>
-
-    <label>
+    <label class="row-container g-4 items-center">
       <input
         type="radio"
         name="priority"
@@ -59,61 +37,90 @@
         value="HIGH"
         [(ngModel)]="userInput.priority"
       />
-      High
+      <small class="error-text body-text">High</small>
+    </label>
+
+    <label class="row-container g-4 items-center">
+      <input
+        type="radio"
+        name="priority"
+        [disabled]="isEditMode"
+        value="MEDIUM"
+        [(ngModel)]="userInput.priority"
+      />
+      <small class="warning-text body-text">Medium</small>
+    </label>
+
+    <label class="row-container g-4 items-center">
+      <input
+        type="radio"
+        name="priority"
+        [disabled]="isEditMode"
+        value="LOW"
+        [(ngModel)]="userInput.priority"
+      />
+      <small class="success-text body-text">Low</small>
     </label>
   </div>
 
   <!-- Status Container -->
-  <div class="row-container center" *ngIf="isEditMode">
-    Status :
+  <div class="row-container g-16 items-center" *ngIf="isEditMode">
+    <p class="muted-text body-text">Status :</p>
 
-    <label>
+    <label class="row-container g-4 items-center">
       <input
         type="radio"
         name="status"
         value="OPEN"
         [(ngModel)]="userInput.status"
       />
-      Open
+      <small class="error-text body-text">Open</small>
     </label>
 
-    <label>
+    <label class="row-container g-4 items-center">
       <input
         type="radio"
         name="status"
         value="IN-PROGRESS"
         [(ngModel)]="userInput.status"
       />
-      In-Progress
+      <small class="warning-text body-text">In-Progress</small>
     </label>
 
-    <label>
+    <label class="row-container g-4 items-center">
       <input
         type="radio"
         name="status"
         value="CLOSED"
         [(ngModel)]="userInput.status"
       />
-      Closed
+      <small class="success-text body-text">Closed</small>
     </label>
   </div>
 
-  <!-- Status Container -->
-  <div class="col-container" *ngIf="isEditMode">
-    <textarea
-      type="text"
-      name="comment"
-      placeholder="Enter a Comment (optional)"
-      [(ngModel)]="userInput.comment"
-    ></textarea>
-  </div>
+  <!-- Comment Section -->
+  <textarea
+    *ngIf="isEditMode"
+    type="text"
+    name="comment"
+    placeholder="Enter a Comment (optional)"
+    [(ngModel)]="userInput.comment"
+  ></textarea>
 
   <!-- Button Containers -->
-  <div class="row-container">
-    <button type="submit" class="flex" [disabled]="formContainer.invalid">
+  <div class="row-container g-24">
+    <button
+      type="submit"
+      class="btn btn-primary flex-1"
+      [disabled]="formContainer.invalid"
+    >
       Report
     </button>
-    <button type="button" class="destructive-btn" (click)="onCancelClick()">
+    <button
+      type="button"
+      class="btn btn-destructive flex-1"
+      (click)="onCancelClick()"
+    >
       Cancel and Go Back
     </button>
   </div>

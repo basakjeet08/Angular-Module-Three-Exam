@@ -37,6 +37,13 @@ export class IncidentsComponent implements OnInit {
       // Success State
       next: (incidentList: Incident[]) => {
         this.loaderService.endLoading();
+
+        // Showing the success toast
+        this.toastService.showToast({
+          type: 'success',
+          message: 'Incidents fethed successfully !!',
+        });
+
         this.incidentList = incidentList;
       },
 

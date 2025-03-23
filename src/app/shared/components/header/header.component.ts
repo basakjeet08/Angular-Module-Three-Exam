@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../toast/toast.service';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +9,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private profileService: ProfileService, private router: Router) {}
+  // Injecting the necessary dependencies
+  constructor(
+    private profileService: ProfileService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   // This function is invoked when the user clicks on the logout button
   onLogoutClick() {
     this.profileService.logout();
+
+    // Showing the toast
+    this.toastService.showToast({
+      type: 'success',
+      message: 'User logged out successfully !!',
+    });
+
     this.router.navigate(['/auth']);
   }
 }

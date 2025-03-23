@@ -1,7 +1,7 @@
-<div class="incident-container col-container" @staggeredAnimation>
+<div class="w-50 col-container g-16" @staggeredAnimation>
   <h2>Incidents Reported by You . . .</h2>
 
-  <div class="col-container" *ngFor="let incident of incidentList">
+  <div class="col-container g-16" *ngFor="let incident of incidentList">
     <app-incident-card [incident]="incident" />
 
     <!-- Horizontal Line -->

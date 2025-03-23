@@ -1,43 +1,67 @@
 <div class="grid-container">
   <!-- Card container to view Incident List Page -->
   <div
-    class="card-container col-container card-hover"
+    class="card-container hover-variant col-container p-16 g-16"
     (click)="onIncidentPageClick()"
   >
-    <h3>View Incident List . . .</h3>
+    <div class="row-container items-center g-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+        <path
+          d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 9.8c0 39-23.7 74-59.9 88.4C71.6 154.5 32 213 32 278.2L32 352c0 17.7 14.3 32 32 32s32-14.3 32-32l0-73.8c0-10 1.6-19.8 4.5-29L261.1 497.4c9.6 14.8 29.4 19.1 44.3 9.5s19.1-29.4 9.5-44.3L222.6 320l1.4 0 80 0 38.4 51.2c10.6 14.1 30.7 17 44.8 6.4s17-30.7 6.4-44.8l-43.2-57.6C341.3 263.1 327.1 256 312 256l-71.5 0-56.8-80.2-.2-.3c44.7-29 72.5-79 72.5-133.6l0-9.8zM96 80A48 48 0 1 0 0 80a48 48 0 1 0 96 0zM464 286.1l58.6 53.9c4.8 4.4 11.9 5.5 17.8 2.6s9.5-9 9-15.5l-5.6-79.4 78.7-12.2c6.5-1 11.7-5.9 13.1-12.2s-1.1-13-6.5-16.7l-65.6-45.1L603 92.2c3.3-5.7 2.7-12.8-1.4-17.9s-10.9-7.2-17.2-5.3L508.3 92.1l-29.4-74C476.4 12 470.6 8 464 8s-12.4 4-14.9 10.1l-29.4 74L343.6 68.9c-6.3-1.9-13.1 .2-17.2 5.3s-4.6 12.2-1.4 17.9l39.5 69.1-65.6 45.1c-5.4 3.7-8 10.3-6.5 16.7c.1 .3 .1 .6 .2 .8l19.4 0c20.1 0 39.2 7.5 53.8 20.8l18.4 2.9L383 265.3l36.2 48.3c2.1 2.8 3.9 5.7 5.5 8.6L464 286.1z"
+        />
+      </svg>
 
-    <p>
+      <h2>View All Incidents</h2>
+    </div>
+
+    <p class="muted-text body-text">
       Click this card to head to the
-      <span class="highlight">incident List Page</span> where you can view all
-      the incidents you reported and were assigned to you.
+      <span class="secondary-text">incident List Page</span> where you can view
+      all the incidents you reported and were assigned to you.
     </p>
   </div>
 
   <!-- Card container to view Report New Incident Page -->
   <div
-    class="card-container col-container card-hover"
+    class="card-container hover-variant col-container p-16 g-16"
     (click)="onReportIncidentClick()"
   >
-    <h3>Report New Incident . . .</h3>
+    <div class="row-container items-center g-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+        <path
+          d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L477.4 348.9c1.7-9.4 2.6-19 2.6-28.9l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64.3 0c-1.1-14.1-5-27.5-11.1-39.5c.7-.6 1.4-1.2 2.1-1.9l64-64c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-64 64c-.7 .7-1.3 1.4-1.9 2.1C409.2 164.1 393.1 160 376 160l-112 0c-8.3 0-16.3 1-24 2.8L38.8 5.1zM320 0c-53 0-96 43-96 96l0 3.6c0 15.7 12.7 28.4 28.4 28.4l135.1 0c15.7 0 28.4-12.7 28.4-28.4l0-3.6c0-53-43-96-96-96zM160.3 256L96 256c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c0 24.6 5.5 47.8 15.4 68.6c-2.2 1.3-4.2 2.9-6 4.8l-64 64c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l63.1-63.1c24.5 21.8 55.8 36.2 90.3 39.6l0-143.7L166.7 227.3c-3.4 9-5.6 18.7-6.4 28.7zM336 479.2c36.6-3.6 69.7-19.6 94.8-43.8L336 360.7l0 118.5z"
+        />
+      </svg>
 
-    <p>
+      <h2>Report New Incident</h2>
+    </div>
+
+    <p class="muted-text body-text">
       Click this card to head to the
-      <span class="highlight">report new Incident Page</span> where you can
+      <span class="accent-text">report new Incident Page</span> where you can
       report new incidents.
     </p>
   </div>
 
   <!-- Card container to view Assigned Incident List Page -->
   <div
-    class="card-container col-container card-hover"
+    class="card-container hover-variant col-container p-16 g-16"
     (click)="onCheckAssignedIncidentsClick()"
   >
-    <h3>Check Incidents Assigned . . .</h3>
+    <div class="row-container items-center g-8">
+      <svg viewBox="0 0 512 512">
+        <path
+          d="M184 48l144 0c4.4 0 8 3.6 8 8l0 40L176 96l0-40c0-4.4 3.6-8 8-8zm-56 8l0 40L64 96C28.7 96 0 124.7 0 160l0 96 192 0 128 0 192 0 0-96c0-35.3-28.7-64-64-64l-64 0 0-40c0-30.9-25.1-56-56-56L184 0c-30.9 0-56 25.1-56 56zM512 288l-192 0 0 32c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-32L0 288 0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-128z"
+        />
+      </svg>
 
-    <p>
+      <h2>Assigned Incidents</h2>
+    </div>
+
+    <p class="muted-text body-text">
       Click this card to head to the
-      <span class="highlight">Assigned Incident list Page</span> where you can
-      check and resolve the incidents assigned to you.
+      <span class="warning-text">Assigned Incident list Page</span> where you
+      can check and resolve the incidents assigned to you.
     </p>
   </div>
 </div>

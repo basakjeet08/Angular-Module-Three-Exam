@@ -1,5 +1,4 @@
 :host {
-  height: 100%;
   width: 100%;
 
   display: flex;
@@ -9,7 +8,7 @@
   padding: 36px;
 }
 
-.incident-container {
+.w-50 {
   width: 50%;
 }
 

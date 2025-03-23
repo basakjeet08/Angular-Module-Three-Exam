@@ -13,16 +13,18 @@
   width: 80%;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
   gap: 24px;
 }
 
-.card-hover:hover {
-  cursor: pointer;
-  background-color: var(--card--variant--color);
-}
+svg {
+  height: 24px;
+  width: 24px;
 
-.highlight {
-  color: var(--primary--color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  fill: var(--primary);
 }
