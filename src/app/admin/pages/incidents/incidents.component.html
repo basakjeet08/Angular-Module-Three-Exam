@@ -1,7 +1,21 @@
+<!-- Header Title Container -->
+<div class="w-50 row-container g-16 space">
+  <h2>Incidents Reporteds</h2>
+
+  <div class="row-container g-8">
+    <p
+      class="card-container hover-variant p-8 caption-text"
+      [ngClass]="{ active: i === activeIndex }"
+      *ngFor="let category of categories; let i = index"
+      (click)="onCategorySelect(i)"
+    >
+      {{ category | titlecase }}
+    </p>
+  </div>
+</div>
+
 <!-- Container for all the Incidents -->
 <div class="w-50 col-container g-16" @staggeredAnimation>
-  <h2>Incidents Reported . . .</h2>
-
   <div class="col-container g-16" *ngFor="let incident of incidentList">
     <app-incident-card [incident]="incident">
       <!-- Button Container -->

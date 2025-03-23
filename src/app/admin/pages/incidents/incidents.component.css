@@ -6,10 +6,19 @@
   align-items: center;
 
   padding: 16px;
+  gap: 16px;
 }
 
 .w-50 {
   width: 50%;
+}
+
+.space {
+  justify-content: space-between;
+}
+
+.active {
+  color: var(--accent);
 }
 
 .center {

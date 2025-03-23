@@ -4,6 +4,7 @@ import { staggerAnimation } from 'src/app/shared/animations/stagger-animation';
 import { LoaderService } from 'src/app/shared/components/loader/loader.service';
 import { ToastService } from 'src/app/shared/components/toast/toast.service';
 import { Incident } from 'src/app/shared/Models/Incidents/Incident';
+import { IncidentStatus } from 'src/app/shared/Models/Incidents/Status';
 import { IncidentService } from 'src/app/shared/services/incident.service';
 
 @Component({
@@ -15,6 +16,16 @@ import { IncidentService } from 'src/app/shared/services/incident.service';
 export class IncidentsComponent implements OnInit {
   // These are the data for the component
   incidentList: Incident[] = [];
+
+  // This variable contains by what it should be categorized
+  categories = [
+    IncidentStatus.OPEN,
+    IncidentStatus.IN_PROGRESS,
+    IncidentStatus.CLOSED,
+    'All',
+  ];
+
+  activeIndex = 0;
 
   // Injecting the necessary dependencies
   constructor(
@@ -34,9 +45,10 @@ export class IncidentsComponent implements OnInit {
   fetchIncidents() {
     // Setting the loading state
     this.loaderService.startLoading();
+    const currentCategory = this.categories[this.activeIndex];
 
     // Calling the api
-    this.incidentService.fetchIncidents().subscribe({
+    this.incidentService.fetchIncidentByStatus(currentCategory).subscribe({
       // Success State
       next: (incidentList: Incident[]) => {
         this.loaderService.endLoading();
@@ -53,9 +65,18 @@ export class IncidentsComponent implements OnInit {
       // Error State
       error: (error: Error) => {
         this.loaderService.endLoading();
-        this.toastService.showToast({ type: 'error', message: error.message });
+        this.toastService.showToast({
+          type: 'error',
+          message: error.message,
+        });
       },
     });
+  }
+
+  // This function is invoked when the user clicks on the category cards
+  onCategorySelect(index: number) {
+    this.activeIndex = index;
+    this.fetchIncidents();
   }
 
   // This function is invoked when the user clicks on the assign button
