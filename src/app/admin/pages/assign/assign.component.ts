@@ -38,7 +38,12 @@ export class AssignComponent implements OnInit {
 
     // If the incident Id is not provided
     if (!this.incidentId) {
-      alert('Invalid Incident Id Passed');
+      this.toastService.showToast({
+        type: 'error',
+        message:
+          'Invalid Incident Id is passed. Please go back and select a proper incident !!',
+      });
+
       this.router.navigate(['../'], { relativeTo: this.route });
     }
   }
@@ -75,6 +80,13 @@ export class AssignComponent implements OnInit {
         // Success State
         next: () => {
           this.loaderService.endLoading();
+
+          // Success State is shown here
+          this.toastService.showToast({
+            type: 'success',
+            message: `Incident is assigned to ${userId} successfully !!`,
+          });
+
           this.location.back();
         },
 
