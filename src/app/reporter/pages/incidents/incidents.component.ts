@@ -44,6 +44,13 @@ export class IncidentsComponent implements OnInit {
           message: 'Incidents fethed successfully !!',
         });
 
+        if (incidentList.length === 0) {
+          this.toastService.showToast({
+            type: 'info',
+            message: 'There are no incidents reported !!',
+          });
+        }
+
         this.incidentList = incidentList;
       },
 

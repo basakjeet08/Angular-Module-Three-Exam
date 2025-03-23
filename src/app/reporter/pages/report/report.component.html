@@ -9,15 +9,15 @@
 
   <!-- Title Container -->
   <div class="col-container g-8">
-    <input
+    <textarea
       type="text"
       name="title"
-      placeholder="Set the Title"
+      placeholder="Set a description"
       [disabled]="isEditMode"
       required
       [(ngModel)]="userInput.title"
       #title="ngModel"
-    />
+    ></textarea>
 
     <!-- This is the error text for the title -->
     <p class="error-text caption-text" *ngIf="title.touched && title.invalid">

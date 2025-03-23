@@ -41,6 +41,13 @@ export class AssignedComponent implements OnInit {
       next: (incidentList: Incident[]) => {
         this.loaderService.endLoading();
         this.incidentList = incidentList;
+
+        if (incidentList.length === 0) {
+          this.toastService.showToast({
+            type: 'info',
+            message: 'There are no incidents reported !!',
+          });
+        }
       },
 
       // Error State
