@@ -41,13 +41,18 @@ img {
 
 /* Input fields CSS */
 input,
-textarea {
+textarea,
+select {
   padding: var(--padding-small);
   border-radius: var(--border-radius);
   outline: none;
   border: 1px solid var(--surface-variant);
   color: var(--text);
   background-color: transparent;
+}
+
+option {
+  background-color: var(--surface);
 }
 
 textarea {

@@ -126,29 +126,11 @@
   </div>
 
   <!-- Role Container -->
-  <div class="row-container items-center g-16">
-    <!-- Option Admin -->
-    <label class="row-container g-4">
-      <input
-        type="radio"
-        name="role"
-        value="ADMIN"
-        [(ngModel)]="userInput.role"
-      />
-      Admin
-    </label>
-
-    <!-- Option Reporter -->
-    <label>
-      <input
-        type="radio"
-        name="role"
-        value="REPORTER"
-        [(ngModel)]="userInput.role"
-      />
-      Reporter
-    </label>
-  </div>
+  <select name="role" id="role" [(ngModel)]="userInput.role">
+    <option *ngFor="let option of ['ADMIN', 'REPORTER']" [value]="option">
+      {{ option | titlecase }}
+    </option>
+  </select>
 
   <!-- Button Containers -->
   <button
