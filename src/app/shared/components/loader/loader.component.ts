@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { slideDownAndUpAnimation } from '../../animations/slide-down-animation';
+import { loaderAnimation } from './loader-animation';
 import { LoaderService } from './loader.service';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.css'],
-  animations: [slideDownAndUpAnimation],
+  animations: [loaderAnimation],
 })
 export class LoaderComponent {
   // This is the variable for the component
